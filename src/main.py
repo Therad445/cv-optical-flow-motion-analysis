@@ -28,10 +28,12 @@ def main():
     output_dir = ensure_dir(args.output)
 
     frames, fps = read_video_frames(args.input, max_frames=args.max_frames)
+    if len(frames) < 2:
+        raise ValueError("Video must contain at least 2 frames")
     gray_frames = [to_gray(frame) for frame in frames]
 
     lk_tracker = LKTracker()
-    lk_result = lk_tracker.track(gray_frames)
+    lk_result = lk_tracker.track(gray_frames, detect_interval=20)
 
     farneback = FarnebackMotion()
     fb_result = farneback.process(gray_frames)

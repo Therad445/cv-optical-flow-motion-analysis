@@ -5,7 +5,7 @@ import numpy as np
 class LKTracker:
     def __init__(
         self,
-        max_corners: int = 300,
+        max_corners: int = 180,
         quality_level: float = 0.01,
         min_distance: int = 7,
         block_size: int = 7,
@@ -100,7 +100,7 @@ class LKTracker:
                 if displacements:
                     mean_disp = float(np.mean(displacements))
 
-            if i % detect_interval == 0:
+            if i % detect_interval == 0 and len(prev_pts) < 150:
                 mask = np.full_like(gray, 255)
                 for p in prev_pts.reshape(-1, 2):
                     cv2.circle(mask, (int(p[0]), int(p[1])), 10, 0, -1)

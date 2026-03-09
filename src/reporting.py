@@ -1,11 +1,13 @@
 from pathlib import Path
 
+import matplotlib
+matplotlib.use("Agg")
+
 import cv2
 import matplotlib.pyplot as plt
 import numpy as np
 
 from utils import draw_text, make_montage, resize_for_display, sample_indices
-
 
 def save_image(path: Path, image: np.ndarray):
     cv2.imwrite(str(path), image)
